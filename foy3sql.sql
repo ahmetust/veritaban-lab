@@ -1,14 +1,14 @@
-	--veritabanı oluştur
+	--veritabanÃ½ oluÃ¾tur
 CREATE DATABASE foy3;
 
 use foy3;
 
-	--föydeki birimler tablosunu oluşturma
+	--fÃ¶ydeki birimler tablosunu oluÃ¾turma
 CREATE TABLE birimler (
     birim_id INT PRIMARY KEY,
     birim_ad NVARCHAR(50) NOT NULL,
 );
-	--föydeki calisanlar tablosunu oluşturma
+	--fÃ¶ydeki calisanlar tablosunu oluÃ¾turma
 CREATE TABLE calisanlar (
     calisan_id INT PRIMARY KEY,
     ad CHAR(25),
@@ -18,14 +18,14 @@ CREATE TABLE calisanlar (
 	calisan_birim_id INT NOT NULL,
     FOREIGN KEY (calisan_birim_id) REFERENCES birimler(birim_id)
 );
-	--föydeki unvan tablosunu oluşturma
+	--fÃ¶ydeki unvan tablosunu oluÃ¾turma
 CREATE TABLE unvan (
 	unvan_calisan_id INT NOT NULL,
 	unvan_calisan CHAR(25),
 	unvan_tarih DATETIME,
 	FOREIGN KEY (unvan_calisan_id) REFERENCES calisanlar(calisan_id)
 );
-	--föydeki ikramiye tablosunu oluşturma
+	--fÃ¶ydeki ikramiye tablosunu oluÃ¾turma
 CREATE TABLE ikramiye (
 	ikramiye_calisan_id INT NOT NULL,
 	ikramiye_ucret INT,
@@ -33,35 +33,35 @@ CREATE TABLE ikramiye (
 	FOREIGN KEY (ikramiye_calisan_id) REFERENCES calisanlar(calisan_id)
 );
 
-	--föydeki tabloları istenilen şekilde doldurmak için gereken sorgular
-INSERT INTO birimler(birim_id,birim_ad) VALUES (1,'Yazılım');
-INSERT INTO birimler(birim_id,birim_ad) VALUES (2,'Donanım');
-INSERT INTO birimler(birim_id,birim_ad) VALUES (3,'Güvenlik');
-INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(1,'İsmail','İşeri',100000,'2014-02-20',1);
-INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(2,'Hami','Satılmış',80000,'2014-06-11',1);
-INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(3,'Durmuş','Şahin',300000,'2014-02-20',2);
-INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(4,'Kağan','Yazar',500000,'2014-02-20',3);
-INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(5,'Meryem','Soysaldı',500000,'2014-06-11',3);
-INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(6,'Duygu','Akşehir',200000,'2014-06-11',2);
-INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(7,'Kübra','Seyhan',75000,'2014-01-20',1);
-INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(8,'Gülcan','Yıldız',90000,'2014-04-11',3);
+	--fÃ¶ydeki tablolarÃ½ istenilen Ã¾ekilde doldurmak iÃ§in gereken sorgular
+INSERT INTO birimler(birim_id,birim_ad) VALUES (1,'YazÃ½lÃ½m');
+INSERT INTO birimler(birim_id,birim_ad) VALUES (2,'DonanÃ½m');
+INSERT INTO birimler(birim_id,birim_ad) VALUES (3,'GÃ¼venlik');
+INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(1,'Ãsmail','ÃÃ¾eri',100000,'2014-02-20',1);
+INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(2,'Hami','SatÃ½lmÃ½Ã¾',80000,'2014-06-11',1);
+INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(3,'DurmuÃ¾','Ãahin',300000,'2014-02-20',2);
+INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(4,'KaÃ°an','Yazar',500000,'2014-02-20',3);
+INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(5,'Meryem','SoysaldÃ½',500000,'2014-06-11',3);
+INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(6,'Duygu','AkÃ¾ehir',200000,'2014-06-11',2);
+INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(7,'KÃ¼bra','Seyhan',75000,'2014-01-20',1);
+INSERT INTO calisanlar(calisan_id,ad,soyad,maas,katilmaTarihi,calisan_birim_id) Values(8,'GÃ¼lcan','YÃ½ldÃ½z',90000,'2014-04-11',3);
 INSERT INTO ikramiye(ikramiye_calisan_id,ikramiye_ucret,ikramiye_tarih) Values(1,5000,'2016-02-20');
 INSERT INTO ikramiye(ikramiye_calisan_id,ikramiye_ucret,ikramiye_tarih) Values(2,3000,'2016-06-11');
 INSERT INTO ikramiye(ikramiye_calisan_id,ikramiye_ucret,ikramiye_tarih) Values(3,4000,'2016-02-20');
 INSERT INTO ikramiye(ikramiye_calisan_id,ikramiye_ucret,ikramiye_tarih) Values(1,4500,'2016-02-20');
 INSERT INTO ikramiye(ikramiye_calisan_id,ikramiye_ucret,ikramiye_tarih) Values(2,3500,'2016-06-11');
-INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(1,'Yönetici','2016-02-20');
+INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(1,'YÃ¶netici','2016-02-20');
 INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(2,'Personel','2016-06-11');
 INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(8,'Personel','2016-06-11');
-INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(5,'Müdür','2016-06-11');
-INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(4,'Yönetici Yardımcısı','2016-06-11');
+INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(5,'MÃ¼dÃ¼r','2016-06-11');
+INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(4,'YÃ¶netici YardÃ½mcÃ½sÃ½','2016-06-11');
 INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(7,'Personel','2016-06-11');
-INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(6,'Takım Lideri','2016-06-11');
-INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(3,'Takım Lideri','2016-06-11');
+INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(6,'TakÃ½m Lideri','2016-06-11');
+INSERT INTO unvan(unvan_calisan_id,unvan_calisan,unvan_tarih) Values(3,'TakÃ½m Lideri','2016-06-11');
 
 
 --cevap 3
-SELECT ad,soyad,maas FROM calisanlar WHERE calisan_birim_id IN (SELECT birim_id FROM birimler WHERE birim_ad = 'Yazılım' OR birim_ad = 'Donanım');
+SELECT ad,soyad,maas FROM calisanlar WHERE calisan_birim_id IN (SELECT birim_id FROM birimler WHERE birim_ad = 'YazÃ½lÃ½m' OR birim_ad = 'DonanÃ½m');
 
 --cevap 4
 SELECT ad,soyad,maas FROM calisanlar WHERE maas = (SELECT MAX(maas) FROM calisanlar);
@@ -84,7 +84,7 @@ INNER JOIN ikramiye ON calisan_id = ikramiye_calisan_id;
 --cevap 9
 SELECT ad, soyad, unvan_calisan FROM calisanlar
 INNER JOIN unvan ON calisan_id = unvan_calisan_id
-WHERE unvan_calisan IN ('Yönetici', 'Müdür');
+WHERE unvan_calisan IN ('YÃ¶netici', 'MÃ¼dÃ¼r');
 
 --cevap 10
 SELECT ad, soyad, maas FROM calisanlar
