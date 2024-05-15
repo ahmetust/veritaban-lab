@@ -1,4 +1,3 @@
-use foy4;
 CREATE TABLE client_master (
     client_no NVARCHAR(6) PRIMARY KEY,
     name NVARCHAR(20),
@@ -10,12 +9,18 @@ CREATE TABLE client_master (
     bal_due DECIMAL(10, 2)
 );
 
-INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) VALUES ('0001', 'Ivan','Bombay', 'Maharashtra', 400054, 15000.00);
-INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) VALUES ('0002', 'Vandana','Madras', 'Tamilnadu', 780001, 0.00);
-INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) VALUES ('0003', 'Pramada','Bombay', 'Maharashtra', 400057, 5000.00);
-INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) VALUES ('0004', 'Basu','Bombay', 'Maharashtra', 400056, 0);
-INSERT INTO client_master (client_no, name,city, pincode, bal_due) VALUES ('0005', 'Ravi','Delhi', 100001, 2000.00);
-INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) VALUES ('0006', 'Rukmini','Bombay', 'Maharashtra', 400050, 0);
+INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) 
+VALUES ('0001', 'Ivan','Bombay', 'Maharashtra', 400054, 15000.00);
+INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) 
+VALUES ('0002', 'Vandana','Madras', 'Tamilnadu', 780001, 0.00);
+INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) 
+VALUES ('0003', 'Pramada','Bombay', 'Maharashtra', 400057, 5000.00);
+INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) 
+VALUES ('0004', 'Basu','Bombay', 'Maharashtra', 400056, 0);
+INSERT INTO client_master (client_no, name,city, pincode, bal_due) 
+VALUES ('0005', 'Ravi','Delhi', 100001, 2000.00);
+INSERT INTO client_master (client_no, name,city, state, pincode, bal_due) 
+VALUES ('0006', 'Rukmini','Bombay', 'Maharashtra', 400050, 0);
 
 
 CREATE TABLE product_master (
@@ -90,7 +95,6 @@ CREATE TABLE sales_order (
 	CONSTRAINT chk_os CHECK (order_status IN ('in process', 'fulfilled', 'back order', 'canceled'))
 );
 
-
 INSERT INTO sales_order (s_order_no, s_order_date, client_no, salesman_no, dely_type, billed_yn, dely_date, order_status)
 VALUES ('019001', '1996-01-12', '0001', '500001', 'F', 'N', '1996-01-20', 'in process');
 INSERT INTO sales_order (s_order_no, s_order_date, client_no, salesman_no, dely_type, billed_yn, dely_date, order_status)
@@ -140,3 +144,79 @@ VALUES ('010008', 'P07975', 1, 0, 1050);
 INSERT INTO sales_order_details (s_order_no, product_no, qty_order, qty_disp, Product_rate)
 VALUES ('010008', 'P00001', 10, 5, 525);
 
+--soru 1
+CREATE VIEW Salesman_tgt AS
+SELECT *
+FROM salesman_master
+WHERE tgt_to_get > 200;
+SELECT * FROM Salesman_tgt;
+
+--soru 2
+CREATE VIEW product_view (pro_no, descr, profit, Unit_measure, qty)
+AS 
+SELECT product_no, description, profit_percent, unit_measure, qty_on_hand
+FROM product_master;
+SELECT * FROM product_view;
+
+--soru 3
+SELECT descr
+FROM product_view
+WHERE qty = 10;
+
+--soru 4
+SELECT c.name AS customer_name
+FROM sales_order so
+INNER JOIN client_master c ON so.client_no = c.client_no
+WHERE so.dely_date <= DATEADD(day, -10, so.s_order_date);
+
+--soru 5
+CREATE VIEW DailyOrders AS
+SELECT *
+FROM sales_order
+WHERE CONVERT(DATE, dely_date) = CONVERT(DATE, GETDATE());
+Select * from DailyOrders
+
+--soru 6
+CREATE TABLE Kısıt (
+    kısıt_id INT PRIMARY KEY,
+    sayı DECIMAL(10, 2) NOT NULL,
+	metin NVARCHAR(10),
+	CONSTRAINT chk_metin CHECK (metin LIKE '0%'),
+    CONSTRAINT chk_sayı CHECK (sayı >= 0)
+);
+
+--soru 7
+CREATE TABLE Person (
+    id INT PRIMARY KEY,
+    name NVARCHAR(50),
+    surname NVARCHAR(50),
+    email NVARCHAR(100)
+);
+INSERT INTO Person (id, name, surname, email) VALUES
+(1, 'John', 'Doe', 'john.doe@example.com'),
+(2, 'Jane', 'Smith', 'jane.smith@example.com'),
+(3, 'Michael', 'Johnson', 'michael.johnson@example.com'),
+(4, 'Emily', 'Williams', 'emily.williams@example.com'),
+(5, 'William', 'Brown', 'william.brown@example.com'),
+(6, 'Olivia', 'Jones', 'olivia.jones@example.com'),
+(7, 'James', 'Garcia', 'james.garcia@example.com'),
+(8, 'Sophia', 'Martinez', 'sophia.martinez@example.com'),
+(9, 'Alexander', 'Hernandez', 'alexander.hernandez@example.com'),
+(10, 'Isabella', 'Lopez', 'isabella.lopez@example.com'),
+(11, 'Benjamin', 'Scott', 'benjamin.scott@example.com'),
+(12, 'Mia', 'Green', 'mia.green@example.com'),
+(13, 'Ethan', 'Adams', 'ethan.adams@example.com'),
+(14, 'Charlotte', 'Campbell', 'charlotte.campbell@example.com'),
+(15, 'Jacob', 'Rivera', 'jacob.rivera@example.com'),
+(16, 'Amelia', 'Evans', 'amelia.evans@example.com'),
+(17, 'Logan', 'Phillips', 'logan.phillips@example.com'),
+(18, 'Harper', 'Ross', 'harper.ross@example.com'),
+(19, 'Aiden', 'Parker', 'aiden.parker@example.com'),
+(20, 'Evelyn', 'Long', 'evelyn.long@example.com');
+
+CREATE INDEX idx_name ON Person (name);
+SELECT * FROM sys.indexes WHERE name = 'idx_name';
+
+
+CREATE INDEX idx_surname ON Person (surname);
+SELECT * FROM sys.indexes WHERE name = 'idx_surname';
